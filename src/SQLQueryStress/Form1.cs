@@ -79,6 +79,11 @@ namespace SQLQueryStress
         //WAITFOR DELAY '00:00:05'  (1300 ms?? WTF??)
         private int _totalTimeMessages;
 
+        private double _minActual;
+        private double _maxActual;
+        private double _minSeconds;
+        private double _maxSeconds;
+
         public Form1(string configFile, bool unattendedMode, int numThreads) : this()
         {
             var fileExists = File.Exists(configFile);
@@ -92,7 +97,7 @@ namespace SQLQueryStress
             // set the start processing after form is loaded
             _unattendedMode = unattendedMode;
             if (unattendedMode && fileExists) Load += StartProcessing;
-            
+
             // are we overriding the config file?
             if (numThreads > 0) threads_numericUpDown.Value = _settings.NumThreads = numThreads;
         }
@@ -124,12 +129,12 @@ namespace SQLQueryStress
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             int tmp;
-            ((LoadEngine) e.Argument).StartLoad(backgroundWorker1, (Int32.TryParse(queryDelay_textBox.Text, out tmp) ? tmp : 0));
+            ((LoadEngine)e.Argument).StartLoad(backgroundWorker1, (Int32.TryParse(queryDelay_textBox.Text, out tmp) ? tmp : 0));
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            var output = (LoadEngine.QueryOutput) e.UserState;
+            var output = (LoadEngine.QueryOutput)e.UserState;
 
             _totalIterations++;
 
@@ -144,9 +149,21 @@ namespace SQLQueryStress
                 _totalTimeMessages++;
                 _totalCpuTime += output.CpuTime;
                 _totalElapsedTime += output.ElapsedTime;
+
+                if (output.ElapsedTime < _minActual || _minActual.Equals(0))
+                    _minActual = output.ElapsedTime;
+
+                if (output.ElapsedTime > _maxActual)
+                    _maxActual = output.ElapsedTime;
             }
 
             _totalTime += output.Time.TotalMilliseconds;
+
+            if (output.Time.TotalMilliseconds < _minSeconds || _minSeconds.Equals(0))
+                _minSeconds = output.Time.TotalMilliseconds;
+
+            if (output.Time.TotalMilliseconds > _maxSeconds)
+                _maxSeconds = output.Time.TotalMilliseconds;
 
             if (output.E != null)
             {
@@ -199,7 +216,7 @@ namespace SQLQueryStress
             if (!_cancelled)
                 progressBar1.Value = 100;
 
-            ((BackgroundWorker) sender).Dispose();
+            ((BackgroundWorker)sender).Dispose();
 
             db_label.Text = "";
 
@@ -226,7 +243,7 @@ namespace SQLQueryStress
 
         private void database_button_Click(object sender, EventArgs e)
         {
-            var dbselect = new DatabaseSelect(_settings) {StartPosition = FormStartPosition.CenterParent};
+            var dbselect = new DatabaseSelect(_settings) { StartPosition = FormStartPosition.CenterParent };
             dbselect.ShowDialog();
         }
 
@@ -261,6 +278,10 @@ namespace SQLQueryStress
             _totalLogicalReads = 0;
             _totalReadMessages = 0;
             _totalExceptions = 0;
+            _maxActual = 0;
+            _minActual = 0;
+            _minSeconds = 0;
+            _maxSeconds = 0;
 
             iterationsSecond_textBox.Text = @"0";
             avgSeconds_textBox.Text = @"0.0";
@@ -311,7 +332,7 @@ namespace SQLQueryStress
                 fs = new FileStream(fileName, FileMode.Open);
                 var bf = new BinaryFormatter();
 
-                _settings = (QueryStressSettings) bf.Deserialize(fs);
+                _settings = (QueryStressSettings)bf.Deserialize(fs);
             }
             catch
             {
@@ -348,7 +369,7 @@ namespace SQLQueryStress
             var sqlControl = elementHost1.Child as SqlControl;
             if (sqlControl != null)
             {
-                var p = new ParamWindow(_settings, sqlControl.Text) {StartPosition = FormStartPosition.CenterParent};
+                var p = new ParamWindow(_settings, sqlControl.Text) { StartPosition = FormStartPosition.CenterParent };
                 p.ShowDialog();
             }
         }
@@ -378,9 +399,9 @@ namespace SQLQueryStress
         private void SaveSettingsFromForm1()
         {
             var sqlControl = elementHost1.Child as SqlControl;
-            if (sqlControl != null) _settings.MainQuery =  sqlControl.Text;
-            _settings.NumThreads = (int) threads_numericUpDown.Value;
-            _settings.NumIterations = (int) iterations_numericUpDown.Value;
+            if (sqlControl != null) _settings.MainQuery = sqlControl.Text;
+            _settings.NumThreads = (int)threads_numericUpDown.Value;
+            _settings.NumIterations = (int)iterations_numericUpDown.Value;
         }
 
         private void saveSettingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -391,7 +412,7 @@ namespace SQLQueryStress
 
         private void totalExceptions_textBox_Click(object sender, EventArgs e)
         {
-            _exceptionViewer = new DataViewer {StartPosition = FormStartPosition.CenterParent, Text = Resources.Exceptions};
+            _exceptionViewer = new DataViewer { StartPosition = FormStartPosition.CenterParent, Text = Resources.Exceptions };
 
             var dt = new DataTable();
             dt.Columns.Add("Count");
@@ -414,21 +435,34 @@ namespace SQLQueryStress
             _exceptionViewer.ShowDialog();
         }
 
+
         private void UpdateUi()
         {
             iterationsSecond_textBox.Text = _totalIterations.ToString();
             var avgIterations = _totalIterations == 0 ? 0.0 : _totalTime / _totalIterations / 1000;
+            var minIterations = _totalIterations == 0 ? 0.0 : _minSeconds / 1000;
+            var maxIterations = _totalIterations == 0 ? 0.0 : _maxSeconds / 1000;
             var avgCpu = _totalTimeMessages == 0 ? 0.0 : _totalCpuTime / _totalTimeMessages / 1000;
             var avgActual = _totalTimeMessages == 0 ? 0.0 : _totalElapsedTime / _totalTimeMessages / 1000;
+            var minActual = _totalTimeMessages == 0 ? 0.0 : _minActual / 1000;
+            var maxActual = _totalTimeMessages == 0 ? 0.0 : _maxActual / 1000;
+
             var avgReads = _totalReadMessages == 0 ? 0.0 : _totalLogicalReads / _totalReadMessages;
 
             avgSeconds_textBox.Text = avgIterations.ToString("0.0000");
+            avgSeconds_textBoxMin.Text = minIterations.ToString("0.0000");
+            avgSeconds_textBoxMax.Text = maxIterations.ToString("0.0000");
             cpuTime_textBox.Text = _totalTimeMessages == 0 ? "---" : avgCpu.ToString("0.0000");
             actualSeconds_textBox.Text = _totalTimeMessages == 0 ? "---" : avgActual.ToString("0.0000");
+            actualSeconds_textBoxMin.Text = _totalTimeMessages == 0 ? "---" : minActual.ToString("0.0000");
+            actualSeconds_textBoxMax.Text = _totalTimeMessages == 0 ? "---" : maxActual.ToString("0.0000");
+
+
+
             logicalReads_textBox.Text = _totalReadMessages == 0 ? "---" : avgReads.ToString("0.0000");
 
             totalExceptions_textBox.Text = _totalExceptions.ToString();
-            progressBar1.Value = Math.Min((int) (_totalIterations / (decimal) _totalExpectedIterations * 100), 100);
+            progressBar1.Value = Math.Min((int)(_totalIterations / (decimal)_totalExpectedIterations * 100), 100);
 
             var end = new TimeSpan(DateTime.Now.Ticks);
             end = end.Subtract(_start);

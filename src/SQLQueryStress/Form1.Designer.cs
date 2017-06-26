@@ -67,7 +67,6 @@ namespace SQLQueryStress
             this.label4 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.label5 = new System.Windows.Forms.Label();
-            this.avgSeconds_textBox = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -89,7 +88,6 @@ namespace SQLQueryStress
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.actualSeconds_textBox = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.param_button = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -97,9 +95,17 @@ namespace SQLQueryStress
             this.btnCleanBuffer = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.queryDelay_textBox = new System.Windows.Forms.TextBox();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.avgSeconds_textBox = new System.Windows.Forms.Label();
+            this.avgSeconds_textBoxMin = new System.Windows.Forms.Label();
+            this.avgSeconds_textBoxMax = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.sqlControl1 = new SQLQueryStress.SqlControl();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.actualSeconds_textBox = new System.Windows.Forms.Label();
+            this.actualSeconds_textBoxMin = new System.Windows.Forms.Label();
+            this.actualSeconds_textBoxMax = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iterations_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.threads_numericUpDown)).BeginInit();
@@ -107,7 +113,9 @@ namespace SQLQueryStress
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -128,7 +136,7 @@ namespace SQLQueryStress
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(733, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(864, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -198,7 +206,7 @@ namespace SQLQueryStress
             this.go_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.go_button.Location = new System.Drawing.Point(3, 3);
             this.go_button.Name = "go_button";
-            this.go_button.Size = new System.Drawing.Size(92, 40);
+            this.go_button.Size = new System.Drawing.Size(116, 40);
             this.go_button.TabIndex = 3;
             this.go_button.Text = "GO";
             this.go_button.UseVisualStyleBackColor = true;
@@ -211,7 +219,7 @@ namespace SQLQueryStress
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(3, 152);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(196, 14);
+            this.label2.Size = new System.Drawing.Size(270, 14);
             this.label2.TabIndex = 5;
             this.label2.Text = "Number of Iterations";
             // 
@@ -222,7 +230,7 @@ namespace SQLQueryStress
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(3, 202);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(196, 14);
+            this.label3.Size = new System.Drawing.Size(270, 14);
             this.label3.TabIndex = 7;
             this.label3.Text = "Number of Threads";
             // 
@@ -277,9 +285,9 @@ namespace SQLQueryStress
             this.cancel_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cancel_button.Enabled = false;
             this.cancel_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancel_button.Location = new System.Drawing.Point(101, 3);
+            this.cancel_button.Location = new System.Drawing.Point(125, 3);
             this.cancel_button.Name = "cancel_button";
-            this.cancel_button.Size = new System.Drawing.Size(92, 40);
+            this.cancel_button.Size = new System.Drawing.Size(117, 40);
             this.cancel_button.TabIndex = 11;
             this.cancel_button.Text = "Cancel";
             this.cancel_button.UseVisualStyleBackColor = true;
@@ -290,9 +298,9 @@ namespace SQLQueryStress
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(205, 152);
+            this.label4.Location = new System.Drawing.Point(279, 152);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(196, 14);
+            this.label4.Size = new System.Drawing.Size(245, 14);
             this.label4.TabIndex = 12;
             this.label4.Text = "Iterations Completed";
             // 
@@ -309,33 +317,19 @@ namespace SQLQueryStress
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(205, 202);
+            this.label5.Location = new System.Drawing.Point(279, 202);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(196, 14);
+            this.label5.Size = new System.Drawing.Size(245, 14);
             this.label5.TabIndex = 14;
-            this.label5.Text = "Client Seconds/Iteration (Avg)";
-            // 
-            // avgSeconds_textBox
-            // 
-            this.avgSeconds_textBox.BackColor = System.Drawing.Color.Black;
-            this.avgSeconds_textBox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.avgSeconds_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.avgSeconds_textBox.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.avgSeconds_textBox.ForeColor = System.Drawing.Color.Lime;
-            this.avgSeconds_textBox.Location = new System.Drawing.Point(205, 219);
-            this.avgSeconds_textBox.Margin = new System.Windows.Forms.Padding(3);
-            this.avgSeconds_textBox.Name = "avgSeconds_textBox";
-            this.avgSeconds_textBox.Size = new System.Drawing.Size(196, 30);
-            this.avgSeconds_textBox.TabIndex = 13;
-            this.avgSeconds_textBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label5.Text = "Client Seconds/Iteration (Avg, Min, Max)";
             // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.Control;
             this.progressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar1.Location = new System.Drawing.Point(205, 69);
+            this.progressBar1.Location = new System.Drawing.Point(279, 69);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(196, 30);
+            this.progressBar1.Size = new System.Drawing.Size(245, 30);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar1.TabIndex = 15;
             // 
@@ -344,9 +338,9 @@ namespace SQLQueryStress
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(205, 52);
+            this.label6.Location = new System.Drawing.Point(279, 52);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(196, 14);
+            this.label6.Size = new System.Drawing.Size(245, 14);
             this.label6.TabIndex = 16;
             this.label6.Text = "Progress";
             // 
@@ -355,9 +349,9 @@ namespace SQLQueryStress
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(205, 252);
+            this.label7.Location = new System.Drawing.Point(279, 254);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(196, 14);
+            this.label7.Size = new System.Drawing.Size(245, 12);
             this.label7.TabIndex = 18;
             this.label7.Text = "Total Exceptions";
             // 
@@ -370,7 +364,7 @@ namespace SQLQueryStress
             this.totalExceptions_textBox.Location = new System.Drawing.Point(3, 3);
             this.totalExceptions_textBox.Margin = new System.Windows.Forms.Padding(3);
             this.totalExceptions_textBox.Name = "totalExceptions_textBox";
-            this.totalExceptions_textBox.Size = new System.Drawing.Size(155, 30);
+            this.totalExceptions_textBox.Size = new System.Drawing.Size(242, 30);
             this.totalExceptions_textBox.TabIndex = 17;
             this.totalExceptions_textBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.totalExceptions_textBox.Click += new System.EventHandler(this.totalExceptions_textBox_Click);
@@ -384,9 +378,9 @@ namespace SQLQueryStress
             this.label8.AutoSize = true;
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(205, 102);
+            this.label8.Location = new System.Drawing.Point(279, 102);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(196, 14);
+            this.label8.Size = new System.Drawing.Size(245, 14);
             this.label8.TabIndex = 20;
             this.label8.Text = "Elapsed Time";
             // 
@@ -397,10 +391,10 @@ namespace SQLQueryStress
             this.elapsedTime_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.elapsedTime_textBox.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.elapsedTime_textBox.ForeColor = System.Drawing.Color.Lime;
-            this.elapsedTime_textBox.Location = new System.Drawing.Point(205, 119);
+            this.elapsedTime_textBox.Location = new System.Drawing.Point(279, 119);
             this.elapsedTime_textBox.Margin = new System.Windows.Forms.Padding(3);
             this.elapsedTime_textBox.Name = "elapsedTime_textBox";
-            this.elapsedTime_textBox.Size = new System.Drawing.Size(196, 30);
+            this.elapsedTime_textBox.Size = new System.Drawing.Size(245, 30);
             this.elapsedTime_textBox.TabIndex = 19;
             this.elapsedTime_textBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -414,7 +408,7 @@ namespace SQLQueryStress
             this.database_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.database_button.Location = new System.Drawing.Point(3, 69);
             this.database_button.Name = "database_button";
-            this.database_button.Size = new System.Drawing.Size(196, 30);
+            this.database_button.Size = new System.Drawing.Size(270, 30);
             this.database_button.TabIndex = 22;
             this.database_button.Text = "Database";
             this.database_button.UseVisualStyleBackColor = true;
@@ -427,17 +421,17 @@ namespace SQLQueryStress
             this.iterationsSecond_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.iterationsSecond_textBox.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.iterationsSecond_textBox.ForeColor = System.Drawing.Color.Lime;
-            this.iterationsSecond_textBox.Location = new System.Drawing.Point(205, 169);
+            this.iterationsSecond_textBox.Location = new System.Drawing.Point(279, 169);
             this.iterationsSecond_textBox.Margin = new System.Windows.Forms.Padding(3);
             this.iterationsSecond_textBox.Name = "iterationsSecond_textBox";
-            this.iterationsSecond_textBox.Size = new System.Drawing.Size(196, 30);
+            this.iterationsSecond_textBox.Size = new System.Drawing.Size(245, 30);
             this.iterationsSecond_textBox.TabIndex = 23;
             this.iterationsSecond_textBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // exceptions_button
             // 
             this.exceptions_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exceptions_button.Location = new System.Drawing.Point(164, 3);
+            this.exceptions_button.Location = new System.Drawing.Point(3, 39);
             this.exceptions_button.Name = "exceptions_button";
             this.exceptions_button.Size = new System.Drawing.Size(27, 23);
             this.exceptions_button.TabIndex = 24;
@@ -452,7 +446,7 @@ namespace SQLQueryStress
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(3, 302);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(196, 14);
+            this.label9.Size = new System.Drawing.Size(270, 14);
             this.label9.TabIndex = 26;
             this.label9.Text = "CPU Seconds/Iteration (Avg)";
             // 
@@ -466,7 +460,7 @@ namespace SQLQueryStress
             this.cpuTime_textBox.Location = new System.Drawing.Point(3, 319);
             this.cpuTime_textBox.Margin = new System.Windows.Forms.Padding(3);
             this.cpuTime_textBox.Name = "cpuTime_textBox";
-            this.cpuTime_textBox.Size = new System.Drawing.Size(196, 30);
+            this.cpuTime_textBox.Size = new System.Drawing.Size(270, 30);
             this.cpuTime_textBox.TabIndex = 25;
             this.cpuTime_textBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -475,9 +469,9 @@ namespace SQLQueryStress
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(205, 302);
+            this.label12.Location = new System.Drawing.Point(279, 302);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(196, 14);
+            this.label12.Size = new System.Drawing.Size(245, 14);
             this.label12.TabIndex = 30;
             this.label12.Text = "Logical Reads/Iteration (Avg)";
             // 
@@ -488,10 +482,10 @@ namespace SQLQueryStress
             this.logicalReads_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logicalReads_textBox.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logicalReads_textBox.ForeColor = System.Drawing.Color.Lime;
-            this.logicalReads_textBox.Location = new System.Drawing.Point(205, 319);
+            this.logicalReads_textBox.Location = new System.Drawing.Point(279, 319);
             this.logicalReads_textBox.Margin = new System.Windows.Forms.Padding(3);
             this.logicalReads_textBox.Name = "logicalReads_textBox";
-            this.logicalReads_textBox.Size = new System.Drawing.Size(196, 30);
+            this.logicalReads_textBox.Size = new System.Drawing.Size(245, 30);
             this.logicalReads_textBox.TabIndex = 29;
             this.logicalReads_textBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -507,8 +501,8 @@ namespace SQLQueryStress
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 202F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 202F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 276F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128F));
             this.tableLayoutPanel1.Controls.Add(this.logicalReads_textBox, 1, 12);
             this.tableLayoutPanel1.Controls.Add(this.label12, 1, 11);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 5);
@@ -520,9 +514,7 @@ namespace SQLQueryStress
             this.tableLayoutPanel1.Controls.Add(this.label10, 0, 13);
             this.tableLayoutPanel1.Controls.Add(this.cpuTime_textBox, 0, 12);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 10);
-            this.tableLayoutPanel1.Controls.Add(this.actualSeconds_textBox, 0, 14);
             this.tableLayoutPanel1.Controls.Add(this.label7, 1, 9);
-            this.tableLayoutPanel1.Controls.Add(this.avgSeconds_textBox, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.label5, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.iterationsSecond_textBox, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.label4, 1, 5);
@@ -535,7 +527,9 @@ namespace SQLQueryStress
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.queryDelay_textBox, 0, 10);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(326, 3);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel3, 0, 14);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(334, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 15;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
@@ -546,14 +540,15 @@ namespace SQLQueryStress
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 12F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(404, 404);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(527, 404);
             this.tableLayoutPanel1.TabIndex = 32;
             // 
             // label10
@@ -563,33 +558,19 @@ namespace SQLQueryStress
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(3, 352);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(196, 20);
+            this.label10.Size = new System.Drawing.Size(270, 20);
             this.label10.TabIndex = 28;
-            this.label10.Text = "Actual Seconds/Iteration (Avg)";
+            this.label10.Text = "Actual Seconds/Iteration (Avg, Min, Max)";
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.totalExceptions_textBox);
             this.flowLayoutPanel1.Controls.Add(this.exceptions_button);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(205, 269);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(279, 269);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(196, 30);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(245, 30);
             this.flowLayoutPanel1.TabIndex = 31;
-            // 
-            // actualSeconds_textBox
-            // 
-            this.actualSeconds_textBox.BackColor = System.Drawing.Color.Black;
-            this.actualSeconds_textBox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.actualSeconds_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.actualSeconds_textBox.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.actualSeconds_textBox.ForeColor = System.Drawing.Color.Lime;
-            this.actualSeconds_textBox.Location = new System.Drawing.Point(3, 375);
-            this.actualSeconds_textBox.Margin = new System.Windows.Forms.Padding(3);
-            this.actualSeconds_textBox.Name = "actualSeconds_textBox";
-            this.actualSeconds_textBox.Size = new System.Drawing.Size(196, 26);
-            this.actualSeconds_textBox.TabIndex = 27;
-            this.actualSeconds_textBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tableLayoutPanel2
             // 
@@ -599,11 +580,11 @@ namespace SQLQueryStress
             this.tableLayoutPanel2.Controls.Add(this.cancel_button, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.go_button, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(205, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(279, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(196, 46);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(245, 46);
             this.tableLayoutPanel2.TabIndex = 32;
             // 
             // param_button
@@ -612,7 +593,7 @@ namespace SQLQueryStress
             this.param_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.param_button.Location = new System.Drawing.Point(3, 119);
             this.param_button.Name = "param_button";
-            this.param_button.Size = new System.Drawing.Size(196, 30);
+            this.param_button.Size = new System.Drawing.Size(270, 30);
             this.param_button.TabIndex = 21;
             this.param_button.Text = "Parameter Substitution";
             this.param_button.UseVisualStyleBackColor = true;
@@ -631,16 +612,16 @@ namespace SQLQueryStress
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(196, 46);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(270, 46);
             this.tableLayoutPanel4.TabIndex = 33;
             // 
             // btnFreeCache
             // 
             this.btnFreeCache.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnFreeCache.Location = new System.Drawing.Point(99, 1);
+            this.btnFreeCache.Location = new System.Drawing.Point(136, 1);
             this.btnFreeCache.Margin = new System.Windows.Forms.Padding(1);
             this.btnFreeCache.Name = "btnFreeCache";
-            this.btnFreeCache.Size = new System.Drawing.Size(96, 21);
+            this.btnFreeCache.Size = new System.Drawing.Size(133, 21);
             this.btnFreeCache.TabIndex = 1;
             this.btnFreeCache.Text = "Free Cache";
             this.btnFreeCache.UseVisualStyleBackColor = true;
@@ -652,7 +633,7 @@ namespace SQLQueryStress
             this.btnCleanBuffer.Location = new System.Drawing.Point(1, 1);
             this.btnCleanBuffer.Margin = new System.Windows.Forms.Padding(1);
             this.btnCleanBuffer.Name = "btnCleanBuffer";
-            this.btnCleanBuffer.Size = new System.Drawing.Size(96, 21);
+            this.btnCleanBuffer.Size = new System.Drawing.Size(133, 21);
             this.btnCleanBuffer.TabIndex = 0;
             this.btnCleanBuffer.Text = "Clean Buffers";
             this.btnCleanBuffer.UseVisualStyleBackColor = true;
@@ -663,9 +644,9 @@ namespace SQLQueryStress
             this.label11.AutoSize = true;
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.label11.Location = new System.Drawing.Point(3, 252);
+            this.label11.Location = new System.Drawing.Point(3, 254);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(196, 14);
+            this.label11.Size = new System.Drawing.Size(270, 12);
             this.label11.TabIndex = 34;
             this.label11.Text = "Delay between queries (ms)";
             // 
@@ -674,9 +655,59 @@ namespace SQLQueryStress
             this.queryDelay_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.queryDelay_textBox.Location = new System.Drawing.Point(3, 269);
             this.queryDelay_textBox.Name = "queryDelay_textBox";
-            this.queryDelay_textBox.Size = new System.Drawing.Size(196, 20);
+            this.queryDelay_textBox.Size = new System.Drawing.Size(270, 20);
             this.queryDelay_textBox.TabIndex = 35;
             this.queryDelay_textBox.Text = "0";
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.avgSeconds_textBox);
+            this.flowLayoutPanel2.Controls.Add(this.avgSeconds_textBoxMin);
+            this.flowLayoutPanel2.Controls.Add(this.avgSeconds_textBoxMax);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(279, 219);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(245, 32);
+            this.flowLayoutPanel2.TabIndex = 36;
+            // 
+            // avgSeconds_textBox
+            // 
+            this.avgSeconds_textBox.BackColor = System.Drawing.Color.Black;
+            this.avgSeconds_textBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.avgSeconds_textBox.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.avgSeconds_textBox.ForeColor = System.Drawing.Color.Lime;
+            this.avgSeconds_textBox.Location = new System.Drawing.Point(3, 3);
+            this.avgSeconds_textBox.Margin = new System.Windows.Forms.Padding(3);
+            this.avgSeconds_textBox.Name = "avgSeconds_textBox";
+            this.avgSeconds_textBox.Size = new System.Drawing.Size(78, 30);
+            this.avgSeconds_textBox.TabIndex = 14;
+            this.avgSeconds_textBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // avgSeconds_textBoxMin
+            // 
+            this.avgSeconds_textBoxMin.BackColor = System.Drawing.Color.Black;
+            this.avgSeconds_textBoxMin.Cursor = System.Windows.Forms.Cursors.Default;
+            this.avgSeconds_textBoxMin.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.avgSeconds_textBoxMin.ForeColor = System.Drawing.Color.Lime;
+            this.avgSeconds_textBoxMin.Location = new System.Drawing.Point(87, 3);
+            this.avgSeconds_textBoxMin.Margin = new System.Windows.Forms.Padding(3);
+            this.avgSeconds_textBoxMin.Name = "avgSeconds_textBoxMin";
+            this.avgSeconds_textBoxMin.Size = new System.Drawing.Size(69, 30);
+            this.avgSeconds_textBoxMin.TabIndex = 15;
+            this.avgSeconds_textBoxMin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // avgSeconds_textBoxMax
+            // 
+            this.avgSeconds_textBoxMax.BackColor = System.Drawing.Color.Black;
+            this.avgSeconds_textBoxMax.Cursor = System.Windows.Forms.Cursors.Default;
+            this.avgSeconds_textBoxMax.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.avgSeconds_textBoxMax.ForeColor = System.Drawing.Color.Lime;
+            this.avgSeconds_textBoxMax.Location = new System.Drawing.Point(162, 3);
+            this.avgSeconds_textBoxMax.Margin = new System.Windows.Forms.Padding(3);
+            this.avgSeconds_textBoxMax.Name = "avgSeconds_textBoxMax";
+            this.avgSeconds_textBoxMax.Size = new System.Drawing.Size(78, 30);
+            this.avgSeconds_textBoxMax.TabIndex = 16;
+            this.avgSeconds_textBoxMax.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tableLayoutPanel3
             // 
@@ -690,7 +721,7 @@ namespace SQLQueryStress
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(733, 410);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(864, 410);
             this.tableLayoutPanel3.TabIndex = 33;
             // 
             // elementHost1
@@ -698,17 +729,67 @@ namespace SQLQueryStress
             this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.elementHost1.Location = new System.Drawing.Point(3, 3);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(317, 404);
+            this.elementHost1.Size = new System.Drawing.Size(325, 404);
             this.elementHost1.TabIndex = 33;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.sqlControl1;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.actualSeconds_textBox);
+            this.flowLayoutPanel3.Controls.Add(this.actualSeconds_textBoxMin);
+            this.flowLayoutPanel3.Controls.Add(this.actualSeconds_textBoxMax);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 375);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(270, 26);
+            this.flowLayoutPanel3.TabIndex = 37;
+            // 
+            // actualSeconds_textBox
+            // 
+            this.actualSeconds_textBox.BackColor = System.Drawing.Color.Black;
+            this.actualSeconds_textBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.actualSeconds_textBox.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.actualSeconds_textBox.ForeColor = System.Drawing.Color.Lime;
+            this.actualSeconds_textBox.Location = new System.Drawing.Point(3, 3);
+            this.actualSeconds_textBox.Margin = new System.Windows.Forms.Padding(3);
+            this.actualSeconds_textBox.Name = "actualSeconds_textBox";
+            this.actualSeconds_textBox.Size = new System.Drawing.Size(85, 26);
+            this.actualSeconds_textBox.TabIndex = 28;
+            this.actualSeconds_textBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // actualSeconds_textBoxMin
+            // 
+            this.actualSeconds_textBoxMin.BackColor = System.Drawing.Color.Black;
+            this.actualSeconds_textBoxMin.Cursor = System.Windows.Forms.Cursors.Default;
+            this.actualSeconds_textBoxMin.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.actualSeconds_textBoxMin.ForeColor = System.Drawing.Color.Lime;
+            this.actualSeconds_textBoxMin.Location = new System.Drawing.Point(94, 3);
+            this.actualSeconds_textBoxMin.Margin = new System.Windows.Forms.Padding(3);
+            this.actualSeconds_textBoxMin.Name = "actualSeconds_textBoxMin";
+            this.actualSeconds_textBoxMin.Size = new System.Drawing.Size(87, 26);
+            this.actualSeconds_textBoxMin.TabIndex = 29;
+            this.actualSeconds_textBoxMin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // actualSeconds_textBoxMax
+            // 
+            this.actualSeconds_textBoxMax.BackColor = System.Drawing.Color.Black;
+            this.actualSeconds_textBoxMax.Cursor = System.Windows.Forms.Cursors.Default;
+            this.actualSeconds_textBoxMax.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.actualSeconds_textBoxMax.ForeColor = System.Drawing.Color.Lime;
+            this.actualSeconds_textBoxMax.Location = new System.Drawing.Point(187, 3);
+            this.actualSeconds_textBoxMax.Margin = new System.Windows.Forms.Padding(3);
+            this.actualSeconds_textBoxMax.Name = "actualSeconds_textBoxMax";
+            this.actualSeconds_textBoxMax.Size = new System.Drawing.Size(80, 26);
+            this.actualSeconds_textBoxMax.TabIndex = 30;
+            this.actualSeconds_textBoxMax.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(733, 434);
+            this.ClientSize = new System.Drawing.Size(864, 434);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.db_label);
             this.Controls.Add(this.label1);
@@ -728,7 +809,9 @@ namespace SQLQueryStress
             this.flowLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -749,7 +832,6 @@ namespace SQLQueryStress
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label avgSeconds_textBox;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -783,10 +865,17 @@ namespace SQLQueryStress
         private Button btnCleanBuffer;
         private System.Windows.Forms.Integration.ElementHost elementHost1;
         private SqlControl sqlControl1;
-        private Label actualSeconds_textBox;
         private Label label10;
         private Label label11;
         private TextBox queryDelay_textBox;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private Label avgSeconds_textBox;
+        private Label avgSeconds_textBoxMin;
+        private Label avgSeconds_textBoxMax;
+        private FlowLayoutPanel flowLayoutPanel3;
+        private Label actualSeconds_textBox;
+        private Label actualSeconds_textBoxMin;
+        private Label actualSeconds_textBoxMax;
     }
 }
 
